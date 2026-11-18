@@ -1,0 +1,46 @@
+1,Malir Cantt Askari-V (Nadeem),21.7,FAST-01
+2,Sector - J Malir Cantt (Nadeem),22.7,FAST-01B
+3,Gawalia / Perfume Chowk (Jadoon),29.8,FAST-02
+4,Pob Eye Hospital / NIPA Chowrangi (Jadoon),20.6,FAST-03
+5,Chishti Nagar / Kamran Chowrangi (Jadoon),45.7,FAST-03B
+6,Maymar Gate / Saadi Town (Jadoon),40.3,FAST-04
+7,Maskan / Gulshan Turn (Jadoon),24.0,FAST-04B
+8,Saima Arabian / Northern Bypass (Jadoon),35.9,FAST-05
+9,Dolmen Mall / Nursery (Jadoon),27.4,FAST-05B
+10,Ajmair Nagri / Sohrab Goth (Jadoon),31.8,FAST-06
+11,Soldier Bazar / Islamia College (Nadeem),28.6,FAST-11
+12,Khudadad Colony / Tariq Road (Nadeem),26.3,FAST-12
+13,Usman Memorial / Millennium (Nadeem),26.5,FAST-13
+14,Old Sabzi Mandi / Bahadurabad (Nadeem),26.8,FAST-14
+15,Forum Shopping Mall / Defense View (Nadeem),23.9,FAST-15
+16,Saba Avenue Imam Bargah / Korangi Creek (Nadeem),32.6,FAST-16
+17,Bilawal Chowrangi / Khayaban e Ittehad (Nadeem),33.8,FAST-16B
+18,Karimabad / Ayesha Manzil (Jadoon),27.3,FAST-17
+19,7 No. Nazimabad / Board Office (Jadoon),29.5,FAST-18
+20,Hassan Square / Aziz Bhatti Park (Nadeem),24.7,FAST-19
+21,Rana Lawn / Model Colony (Jadoon),16.3,FAST-20
+22,Tower / Shahrah-e-Faisal Nursery (Nadeem),37.0,FAST-21
+23,Orangi Town # 5 / Katti Pahari (Jadoon),34.0,FAST-23
+24,Javid Nihari / Mukka Chowk (Jadoon),25.6,FAST-23B
+25,Lala Zar / Mai Kolachi (Jadoon),36.8,FAST-24
+26,Kamran Chowrangi / Darul Sehat (Jadoon),20.5,FAST-24B
+27,Al-Hira / Falcon Society (Jadoon),25.2,FAST-25
+28,Malik Society / Queta Town (Jadoon),30.1,FAST-25B
+29,NED University / Karachi University (Jadoon),22.2,FAST-26
+30,Fariya Chowk / Safora (Jadoon),24.7,FAST-26B
+31,Falcon Malir Cantt. / Jinnah Garden (Nadeem),15.4,FAST-29
+32,Dentist Society / Gulshan Umair (Jadoon),20.0,FAST-27
+33,Saleem Bank / Gull Chowrangi (Jadoon),30.1,FAST-27B
+34,Jahangirabad / Liaquatabad Erum Bakery (Nadeem),13.9,FAST-30
+35,KPT Bridge KababJee / PAF Chapter (Nadeem),26.7,FAST-31
+36,Tyre Company / Khayaban-e-Sehar (Nadeem),30.9,FAST-32
+37,Liaquat 10. No. / Gharibabad (Nadeem),26.5,FAST-33
+38,Korangi Crossing / Landhi 89 (Nadeem),28.7,FAST-34
+39,Teen Talwar / NMC (Nadeem),32.2,FAST-35
+40,Police HQ Garden / Numaish (Nadeem),30.1,FAST-36
+41,Ram Sawami / Allah Wali Chowrangi (Nadeem),30.4,FAST-37
+42,Bacha Party / Altamash (Nadeem),34.2,FAST-38
+43,Perfume Chowk Johar / Hafiz Sweets (Nadeem),20.2,FAST-39
+44,Matka Stop / Lal Flat (Nadeem),19.7,FAST-40
+45,Green Mosque / Bahria Town Main Gate (Nadeem),39.2,FAST-41
+46,Jamshed Road / PP Chowrangi (Nadeem),29.8,FAST-42
