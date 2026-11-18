@@ -34,7 +34,10 @@
   * Menu Choice: `3` (Save Record)
   * Menu Choice: `4` (View All Saved Student Records)
 * **Expected Output:** Displays `[Success] Student record for 'Ali Khan' saved permanently to 'transit_records.txt'!` for Option 3, and lists all stored student pass records cleanly under `SAVED STUDENT PASS RECORDS` for Option 4.
-* **Screenshot:** ![Case 3](screenshots/case3_execution.png)
+* **Screenshot:** 
+  * Saving Record: ![Case 3 Part 1](screenshots/case3_part1_save.png)
+  * Viewing Records: ![Case 3 Part 2](screenshots/case3_part2_view.png)
+
 
 ### Case 4: Invalid Input & Unregistered Save Error Handling
 * **Description:** Verifies how the program handles invalid menu choices, out-of-range Route IDs, and attempts to save a record before completing registration.
@@ -43,7 +46,10 @@
   * Menu Choice: `3` (Before registering a student)
   * Route ID: `99` (Out-of-range route during registration)
 * **Expected Output:** Displays clear, user-friendly error messages (`[Error] Invalid choice! Please select between 1 and 5.`, `[Error] No student registered yet! Please complete Option 2 first.`, and `[Error] Invalid Route ID selected!`) without crashing.
-* **Screenshot:** ![Case 4](screenshots/case4_execution.png)
+* **Screenshot:**
+  * Invalid Menu: ![Case 4.1](screenshots/case4_invalid_menu.png)
+  * Unregistered Save: ![Case 4.2](screenshots/case4_unregistered_save.png)
+  * Invalid Route ID: ![Case 4.3](screenshots/case4_invalid_route.png)
 
 ---
 
