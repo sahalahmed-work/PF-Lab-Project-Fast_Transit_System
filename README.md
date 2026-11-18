@@ -19,9 +19,9 @@
 * **Description:** Validates user data capture into a `Student` struct, verifies the selected Route ID against `routes.txt`, and computes the final fare based on distance, membership tier, and payment mode.
 * **Inputs:**
   * Menu Choice: `2`
-  * Full Name: `Ali Khan`
-  * Email: `k260000@nu.edu.pk`
-  * Contact: `0300-1234567`
+  * Full Name: `Sahal Ahmed`
+  * Email: `k260564@nu.edu.pk`
+  * Contact: `0334-7242500`
   * Route ID: `1`
   * Membership Tier: `2` (PRO)
   * Payment Mode: `2` (Semesterly Upfront)
