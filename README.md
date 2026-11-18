@@ -33,7 +33,7 @@
 * **Inputs:**
   * Menu Choice: `3` (Save Record)
   * Menu Choice: `4` (View All Saved Student Records)
-* **Expected Output:** Displays `[Success] Student record for 'Ali Khan' saved permanently to 'transit_records.txt'!` for Option 3, and lists all stored student pass records cleanly under `SAVED STUDENT PASS RECORDS` for Option 4.
+* **Expected Output:** Displays `[Success] Student record for 'Sahal Ahmed' saved permanently to 'transit_records.txt'!` for Option 3, and lists all stored student pass records cleanly under `SAVED STUDENT PASS RECORDS` for Option 4.
 * **Screenshot:** 
   * Saving Record: ![Case 3 Part 1](screenshots/case3_part1_save.png)
   * Viewing Records: ![Case 3 Part 2](screenshots/case3_part2_view.png)
