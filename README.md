@@ -14,6 +14,7 @@
   * Route ID for stops: `1`
 * **Expected Output:** Displays all 46 routes formatted with ID, route name, distance in km, and bus number, followed by the specific list of stops for Route ID `1` (Malir Cantt Askari-V to FAST NU).
 * **Screenshot:**
+  
   ![Case 1](screenshots/case1_execution.png)
 
 ### Case 2: Student Registration & Dynamic Fare Calculation
@@ -28,6 +29,7 @@
   * Payment Mode: `2` (Semesterly Upfront)
 * **Expected Output:** Applies the Rs. 2,000 PRO tier fee and 10% semesterly bulk discount, then displays a complete Fare Breakdown Summary showing assigned bus (`FAST-01`) and final discounted semester fare (`Rs. 38565.00`).
 * **Screenshot:**
+
   ![Case 2](screenshots/case2_execution.png)
 
 ### Case 3: Saving Student Pass Record & Viewing Saved Records
@@ -51,10 +53,15 @@
 * **Screenshot:**
   
   * Invalid Menu:
+    
      ![Case 4.1](screenshots/case4_invalid_menu.png)
+    
   * Unregistered Save:
+    
     ![Case 4.2](screenshots/case4_unregistered_save.png)
+    
   * Invalid Route ID:
+    
     ![Case 4.3](screenshots/case4_invalid_route.png)
 
 ---
