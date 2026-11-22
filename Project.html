@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAST-TRANSIT Automated System</title>
+    <style>
+        :root {
+            --primary: #800020; /* FAST Maroon */
+            --secondary: #1a1a1a;
+            --bg: #f4f7f6;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--secondary);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button.action-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+        button.action-btn:hover {
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        .result-box {
+            background: #f9f9f9;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FAST-TRANSIT SYSTEM</h1>
+    <div class="subtitle">NUCES Karachi Campus Automated Transport Portal</div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(0)">1. View Routes</button>
+        <button class="tab-btn" onclick="switchTab(1)">2. Register & Calculate Fare</button>
+        <button class="tab-btn" onclick="switchTab(2)">3. Save Pass Record</button>
+        <button class="tab-btn" onclick="switchTab(3)">4. View Saved Records</button>
+    </div>
+
+    <!-- Tab 1: View Routes -->
+    <div class="section active" id="sec-0">
+        <h3>Available Transit Routes Network (Total: 46)</h3>
+        <p>Browse through the active university bus routes and distances below:</p>
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table id="routesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Route Name & Area</th>
+                        <th>Distance (KM)</th>
+                        <th>Bus Allocation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically populated -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab 2: Register Student -->
+    <div class="section" id="sec-1">
+        <h3>Student Registration & Fare Calculation</h3>
+        <form id="regForm" onsubmit="calculateFare(event)">
+            <label>Full Name:</label>
+            <input type="text" id="regName" required placeholder="e.g. Ali Khan">
+
+            <label>Email Address:</label>
+            <input type="email" id="regEmail" required placeholder="e.g. k260000@nu.edu.pk">
+
+            <label>Contact Number:</label>
+            <input type="text" id="regContact" required placeholder="e.g. 0300-1234567">
+
+            <label>Select Route:</label>
+            <select id="regRoute" required>
+                <!-- Populated via JS -->
+            </select>
+
+            <label>Membership Tier:</label>
+            <select id="regTier">
+                <option value="1">Standard</option>
+                <option value="2">PRO (Includes Live ETA & Wi-Fi Access - Rs. 2000 Extra)</option>
+            </select>
+
+            <label>Payment Mode:</label>
+            <select id="regPayment">
+                <option value="1">Monthly (Semester Total / 6)</option>
+                <option value="2">Semesterly (6-Month Upfront - 10% Bulk Discount)</option>
+            </select>
+
+            <button type="submit" class="action-btn">Calculate Fare Breakdown</button>
+        </form>
+
+        <div id="fareResult" class="result-box" style="display: none;"></div>
+    </div>
+
+    <!-- Tab 3: Save Record -->
+    <div class="section" id="sec-2">
+        <h3>Save Record & Generate Transport Pass</h3>
+        <p>Save your verified registration details permanently to browser storage (simulating file persistence).</p>
+        <button onclick="saveCurrentRecord()" class="action-btn">Save Latest Registration</button>
+        <div id="saveStatus" style="margin-top: 15px; font-weight: bold; color: green;"></div>
+    </div>
+
+    <!-- Tab 4: View Saved Records -->
+    <div class="section" id="sec-3">
+        <h3>Saved Student Pass Records</h3>
+        <div style="max-height: 350px; overflow-y: auto;">
+            <table id="recordsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Route</th>
+                        <th>Bus</th>
+                        <th>Final Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically populated -->
+                </tbody>
+            </table>
+        </div>
+        <button onclick="clearRecords()" style="margin-top: 15px; background: #c0392b; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Clear All Records</button>
+    </div>
+</div>
+
+<script>
+    // 46 Routes Data synced with routes.txt and PF Project.c
+    const routesData = [
+        { id: 1, name: "Malir Cantt Askari-V (Nadeem)", distance: 21.7, bus: "FAST-01" },
+        { id: 2, name: "Sector - J Malir Cantt (Nadeem)", distance: 22.7, bus: "FAST-01B" },
+        { id: 3, name: "Gawalia / Perfume Chowk (Jadoon)", distance: 29.8, bus: "FAST-02" },
+        { id: 4, name: "Pob Eye Hospital / NIPA Chowrangi (Jadoon)", distance: 20.6, bus: "FAST-03" },
+        { id: 5, name: "Chishti Nagar / Kamran Chowrangi (Jadoon)", distance: 45.7, bus: "FAST-03B" },
+        { id: 6, name: "Maymar Gate / Saadi Town (Jadoon)", distance: 40.3, bus: "FAST-04" },
+        { id: 7, name: "Maskan / Gulshan Turn (Jadoon)", distance: 24.0, bus: "FAST-04B" },
+        { id: 8, name: "Saima Arabian / Northern Bypass (Jadoon)", distance: 35.9, bus: "FAST-05" },
+        { id: 9, name: "Dolmen Mall / Nursery (Jadoon)", distance: 27.4, bus: "FAST-05B" },
+        { id: 10, name: "Ajmair Nagri / Sohrab Goth (Jadoon)", distance: 31.8, bus: "FAST-06" },
+        { id: 11, name: "Soldier Bazar / Islamia College (Nadeem)", distance: 28.6, bus: "FAST-11" },
+        { id: 12, name: "Khudadad Colony / Tariq Road (Nadeem)", distance: 26.3, bus: "FAST-12" },
+        { id: 13, name: "Usman Memorial / Millennium (Nadeem)", distance: 26.5, bus: "FAST-13" },
+        { id: 14, name: "Old Sabzi Mandi / Bahadurabad (Nadeem)", distance: 26.8, bus: "FAST-14" },
+        { id: 15, name: "Forum Shopping Mall / Defense View (Nadeem)", distance: 23.9, bus: "FAST-15" },
+        { id: 16, name: "Saba Avenue Imam Bargah / Korangi Creek (Nadeem)", distance: 32.6, bus: "FAST-16" },
+        { id: 17, name: "Bilawal Chowrangi / Khayaban e Ittehad (Nadeem)", distance: 33.8, bus: "FAST-16B" },
+        { id: 18, name: "Karimabad / Ayesha Manzil (Jadoon)", distance: 27.3, bus: "FAST-17" },
+        { id: 19, name: "7 No. Nazimabad / Board Office (Jadoon)", distance: 29.5, bus: "FAST-18" },
+        { id: 20, name: "Hassan Square / Aziz Bhatti Park (Nadeem)", distance: 24.7, bus: "FAST-19" },
+        { id: 21, name: "Rana Lawn / Model Colony (Jadoon)", distance: 16.3, bus: "FAST-20" },
+        { id: 22, name: "Tower / Shahrah-e-Faisal Nursery (Nadeem)", distance: 37.0, bus: "FAST-21" },
+        { id: 23, name: "Orangi Town # 5 / Katti Pahari (Jadoon)", distance: 34.0, bus: "FAST-23" },
+        { id: 24, name: "Javid Nihari / Mukka Chowk (Jadoon)", distance: 25.6, bus: "FAST-23B" },
+        { id: 25, name: "Lala Zar / Mai Kolachi (Jadoon)", distance: 36.8, bus: "FAST-24" },
+        { id: 26, name: "Kamran Chowrangi / Darul Sehat (Jadoon)", distance: 20.5, bus: "FAST-24B" },
+        { id: 27, name: "Al-Hira / Falcon Society (Jadoon)", distance: 25.2, bus: "FAST-25" },
+        { id: 28, name: "Malik Society / Queta Town (Jadoon)", distance: 30.1, bus: "FAST-25B" },
+        { id: 29, name: "NED University / Karachi University (Jadoon)", distance: 22.2, bus: "FAST-26" },
+        { id: 30, name: "Fariya Chowk / Safora (Jadoon)", distance: 24.7, bus: "FAST-26B" },
+        { id: 31, name: "Falcon Malir Cantt. / Jinnah Garden (Nadeem)", distance: 15.4, bus: "FAST-29" },
+        { id: 32, name: "Dentist Society / Gulshan Umair (Jadoon)", distance: 20.0, bus: "FAST-27" },
+        { id: 33, name: "Saleem Bank / Gull Chowrangi (Jadoon)", distance: 30.1, bus: "FAST-27B" },
+        { id: 34, name: "Jahangirabad / Liaquatabad Erum Bakery (Nadeem)", distance: 13.9, bus: "FAST-30" },
+        { id: 35, name: "KPT Bridge KababJee / PAF Chapter (Nadeem)", distance: 26.7, bus: "FAST-31" },
+        { id: 36, name: "Tyre Company / Khayaban-e-Sehar (Nadeem)", distance: 30.9, bus: "FAST-32" },
+        { id: 37, name: "Liaquat 10. No. / Gharibabad (Nadeem)", distance: 26.5, bus: "FAST-33" },
+        { id: 38, name: "Korangi Crossing / Landhi 89 (Nadeem)", distance: 28.7, bus: "FAST-34" },
+        { id: 39, name: "Teen Talwar / NMC (Nadeem)", distance: 32.2, bus: "FAST-35" },
+        { id: 40, name: "Police HQ Garden / Numaish (Nadeem)", distance: 30.1, bus: "FAST-36" },
+        { id: 41, name: "Ram Sawami / Allah Wali Chowrangi (Nadeem)", distance: 30.4, bus: "FAST-37" },
+        { id: 42, name: "Bacha Party / Altamash (Nadeem)", distance: 34.2, bus: "FAST-38" },
+        { id: 43, name: "Perfume Chowk Johar / Hafiz Sweets (Nadeem)", distance: 20.2, bus: "FAST-39" },
+        { id: 44, name: "Matka Stop / Lal Flat (Nadeem)", distance: 19.7, bus: "FAST-40" },
+        { id: 45, name: "Green Mosque / Bahria Town Main Gate (Nadeem)", distance: 39.2, bus: "FAST-41" },
+        { id: 46, name: "Jamshed Road / PP Chowrangi (Nadeem)", distance: 29.8, bus: "FAST-42" }
+    ];
+
+    // System constants matching C file
+    const BASE_FEE = 30000.0;
+    const RATE_PER_KM = 500.0;
+    const SEMESTER_MONTHS = 6.0;
+
+    let lastCalculatedRecord = null;
+
+    // Initialize UI Data
+    function init() {
+        const tbody = document.querySelector("#routesTable tbody");
+        const select = document.querySelector("#regRoute");
+        
+        routesData.forEach(r => {
+            // Fill Routes Table
+            tbody.innerHTML += `<tr><td>${r.id}</td><td>${r.name}</td><td>${r.distance.toFixed(1)} km</td><td>${r.bus}</td></tr>`;
+            // Fill Dropdown
+            select.innerHTML += `<option value="${r.id}">[${r.id}] ${r.name} (${r.distance.toFixed(1)} km)</option>`;
+        });
+        loadSavedRecordsTable();
+    }
+
+    function switchTab(index) {
+        document.querySelectorAll('.section').forEach((sec, i) => {
+            sec.classList.toggle('active', i === index);
+        });
+        document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === index);
+        });
+    }
+
+    function calculateFare(e) {
+        e.preventDefault();
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const contact = document.getElementById('regContact').value;
+        const routeId = parseInt(document.getElementById('regRoute').value);
+        const tier = parseInt(document.getElementById('regTier').value);
+        const paymentMode = parseInt(document.getElementById('regPayment').value);
+
+        const route = routesData.find(r => r.id === routeId);
+
+        // Calculation matching C file formula exactly
+        let semesterTotal = BASE_FEE + (route.distance * RATE_PER_KM);
+        if (tier === 2) {
+            semesterTotal += 2000.0;
+        }
+
+        let finalFare = 0.0;
+        let discountNotice = "";
+        let fareLabel = "";
+
+        if (paymentMode === 2) {
+            finalFare = semesterTotal * 0.90; // 10% Bulk Discount on Semester Upfront
+            discountNotice = "Semesterly Bulk Discount (10%) Applied Successfully!";
+            fareLabel = `Final Semester Fare: Rs. ${finalFare.toFixed(2)}`;
+        } else {
+            finalFare = semesterTotal / SEMESTER_MONTHS; // Monthly Installment
+            discountNotice = "Standard Monthly Installment Plan";
+            fareLabel = `Monthly Installment: Rs. ${finalFare.toFixed(2)} / month`;
+        }
+
+        const formattedFareText = (paymentMode === 2) 
+            ? `Semesterly: Rs. ${finalFare.toFixed(2)}` 
+            : `Monthly: Rs. ${finalFare.toFixed(2)}/mo`;
+
+        lastCalculatedRecord = {
+            name, 
+            email, 
+            contact,
+            routeName: route.name,
+            bus: route.bus,
+            distance: route.distance,
+            tier: tier === 2 ? "PRO" : "Standard",
+            payment: paymentMode === 2 ? "Semesterly (Upfront)" : "Monthly Installment",
+            fareText: formattedFareText,
+            rawFare: finalFare.toFixed(2)
+        };
+
+        const resultBox = document.getElementById('fareResult');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `
+            <h4>FARE BREAKDOWN SUMMARY</h4>
+            <p><strong>Student Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Contact:</strong> ${contact}</p>
+            <p><strong>Route:</strong> ${route.name}</p>
+            <p><strong>Assigned Bus:</strong> ${route.bus}</p>
+            <p><strong>Distance:</strong> ${route.distance.toFixed(1)} km</p>
+            <p><strong>Membership:</strong> ${lastCalculatedRecord.tier} | <strong>Payment Mode:</strong> ${lastCalculatedRecord.payment}</p>
+            <p style="color: #27ae60; font-weight: bold;">[Notice] ${discountNotice}</p>
+            <h3 style="color: var(--primary);">${fareLabel}</h3>
+            <p style="font-size: 13px; color: #555;">Go to Tab 3 to save this record permanently!</p>
+        `;
+    }
+
+    function saveCurrentRecord() {
+        const statusDiv = document.getElementById('saveStatus');
+        if (!lastCalculatedRecord) {
+            statusDiv.style.color = "red";
+            statusDiv.innerText = "[Error] Please calculate fare in Tab 2 first!";
+            return;
+        }
+
+        let records = JSON.parse(localStorage.getItem('transit_records') || '[]');
+        records.push(lastCalculatedRecord);
+        localStorage.setItem('transit_records', JSON.stringify(records));
+
+        statusDiv.style.color = "green";
+        statusDiv.innerText = `[Success] Student record for '${lastCalculatedRecord.name}' saved permanently!`;
+        loadSavedRecordsTable();
+    }
+
+    function loadSavedRecordsTable() {
+        const tbody = document.querySelector("#recordsTable tbody");
+        tbody.innerHTML = "";
+        let records = JSON.parse(localStorage.getItem('transit_records') || '[]');
+        
+        if (records.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #777;">No saved records found yet.</td></tr>`;
+            return;
+        }
+
+        records.forEach(rec => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${rec.name}</td>
+                    <td>${rec.email}</td>
+                    <td>${rec.contact}</td>
+                    <td>${rec.routeName}</td>
+                    <td>${rec.bus}</td>
+                    <td>${rec.fareText || ('Rs. ' + rec.rawFare)}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function clearRecords() {
+        localStorage.removeItem('transit_records');
+        loadSavedRecordsTable();
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>
